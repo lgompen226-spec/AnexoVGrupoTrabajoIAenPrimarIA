@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anexo V — Grupo de trabajo del claustro · IA en primarIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark-blue:#0d2244;--mid-blue:#1a3a6e;--blue:#2563c0;--amber:#f59e0b;--amber-light:#fbbf24;--bg-light:#f0f4f8;--text-dark:#1a1a2e;--text-light:#e2e8f0;--white:#fff;--gray-100:#f7fafc;--gray-200:#edf2f7;--gray-300:#e2e8f0;--gray-500:#a0aec0;--gray-600:#718096;--red-500:#e53e3e;--green-600:#2f855a;--green-50:#f0fff4;--orange-50:#fffaf0;--purple-50:#faf5ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:var(--bg-light);color:var(--text-dark);min-height:100vh}
+.screen{display:none;min-height:100vh}.screen.active{display:flex;flex-direction:column}
+.portada{background:linear-gradient(135deg,var(--dark-blue) 0%,var(--mid-blue) 60%,var(--blue) 100%);color:var(--text-light);justify-content:center;align-items:center;text-align:center;padding:2rem}
+.portada-emoji{font-size:3rem;margin-bottom:1rem}
+.portada h1{font-family:'Baloo 2',cursive;font-size:2.1rem;font-weight:800;color:var(--amber);margin-bottom:.3rem}
+.portada h2{font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:500;color:var(--text-light);margin-bottom:.3rem}
+.portada .subtitle{font-size:1rem;color:var(--gray-500);margin-bottom:2rem}
+.portada .version-badge{display:inline-block;background:rgba(245,158,11,.15);border:1px solid var(--amber);color:var(--amber-light);padding:.3rem 1rem;border-radius:20px;font-size:.85rem;font-weight:600;margin-bottom:2rem}
+.portada .enter-btn{display:inline-block;background:var(--amber);color:var(--dark-blue);font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:700;padding:.8rem 2.5rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s}
+.portada .enter-btn:hover{background:var(--amber-light)}
+.top-nav{background:var(--dark-blue);padding:.6rem 1rem;display:flex;align-items:center;gap:.8rem;position:sticky;top:0;z-index:100}
+.nav-btn{background:rgba(255,255,255,.1);color:var(--text-light);border:none;padding:.4rem .8rem;border-radius:6px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:600;transition:background .2s}
+.nav-btn:hover{background:rgba(245,158,11,.3)}
+.nav-btn.home{background:var(--amber);color:var(--dark-blue);font-size:1rem}
+.nav-btn.home:hover{background:var(--amber-light)}
+.nav-title{font-family:'Baloo 2',cursive;color:var(--amber);font-size:1rem;font-weight:700;flex:1;text-align:center}
+.content{flex:1;padding:1.5rem;max-width:1000px;margin:0 auto;width:100%}
+.section-title{font-family:'Baloo 2',cursive;font-size:1.5rem;font-weight:800;color:var(--dark-blue);margin-bottom:.5rem}
+.section-subtitle{font-size:.95rem;color:var(--gray-600);margin-bottom:1.5rem;line-height:1.6}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:1rem}
+.menu-card{background:var(--white);border-radius:10px;padding:1.2rem;cursor:pointer;border:2px solid var(--gray-200);transition:all .2s;display:flex;align-items:flex-start;gap:.8rem}
+.menu-card:hover{border-color:var(--amber);box-shadow:0 4px 12px rgba(13,34,68,.1);transform:translateY(-2px)}
+.menu-card .card-icon{font-size:1.8rem;flex-shrink:0}
+.menu-card .card-content h3{font-family:'Baloo 2',cursive;font-size:1.05rem;font-weight:700;color:var(--dark-blue);margin-bottom:.2rem}
+.menu-card .card-content p{font-size:.85rem;color:var(--gray-600);line-height:1.4}
+.block{background:var(--white);border:1px solid var(--gray-300);border-radius:8px;padding:1.2rem;margin-bottom:1rem}
+.block h3{font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:700;color:var(--dark-blue);margin-bottom:.5rem}
+.block p,.block li{font-size:.88rem;line-height:1.6;margin-bottom:.4rem}
+.block ul{padding-left:1.2rem;margin:.5rem 0}
+.concept-card{background:var(--white);border-radius:8px;border-left:4px solid var(--amber);padding:1rem;margin-bottom:.8rem;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.concept-card h4{font-family:'Baloo 2',cursive;font-size:.95rem;font-weight:700;color:var(--dark-blue);margin-bottom:.3rem}
+.concept-card p{font-size:.85rem;line-height:1.5;color:var(--gray-600)}
+.concept-card .example{background:var(--gray-100);padding:.5rem .8rem;border-radius:6px;font-size:.82rem;margin-top:.4rem;color:var(--text-dark);font-style:italic}
+.teacher-note{background:#fffbeb;border:2px solid var(--amber);border-radius:8px;padding:1rem;margin:1rem 0}
+.teacher-note .note-header{font-family:'Baloo 2',cursive;font-weight:700;color:var(--dark-blue);font-size:.95rem;margin-bottom:.4rem}
+.teacher-note p,.teacher-note li{font-size:.85rem;line-height:1.5}
+.teacher-note ul{padding-left:1.2rem;margin-top:.3rem}
+.info-bar{background:#ebf8ff;border:1px solid var(--blue);border-radius:8px;padding:.8rem 1rem;margin:1rem 0;display:flex;align-items:flex-start;gap:.5rem}
+.info-bar .info-icon{font-size:1.2rem;flex-shrink:0}
+.info-bar .info-text{font-size:.85rem;line-height:1.5}
+.alert-bar{background:#fff5f5;border:1px solid var(--red-500);border-radius:8px;padding:.8rem 1rem;margin:1rem 0;display:flex;align-items:flex-start;gap:.5rem}
+.alert-bar .alert-icon{font-size:1.2rem;flex-shrink:0}
+.alert-bar .alert-text{font-size:.85rem;line-height:1.5}
+.alert-bar .alert-text strong{color:var(--red-500)}
+.ficha-example{background:var(--gray-100);border:2px dashed var(--gray-300);border-radius:8px;padding:1.2rem;margin:1rem 0}
+.ficha-example h4{font-family:'Baloo 2',cursive;font-size:1rem;font-weight:700;color:var(--dark-blue);margin-bottom:.8rem;text-align:center}
+.ficha-grid{display:grid;grid-template-columns:1fr 2fr;gap:.3rem;font-size:.85rem}
+.ficha-grid .ficha-label{font-weight:700;padding:.4rem .6rem;background:var(--white);border-radius:4px}
+.ficha-grid .ficha-value{padding:.4rem .6rem;background:var(--white);border-radius:4px}
+.table-wrapper{overflow-x:auto;margin:1rem 0;border-radius:8px;border:1px solid var(--gray-300)}
+table{width:100%;border-collapse:collapse;font-size:.85rem;background:var(--white)}
+thead th{background:var(--dark-blue);color:var(--text-light);font-family:'Baloo 2',cursive;font-weight:700;padding:.7rem .6rem;text-align:left;font-size:.8rem}
+tbody td{padding:.6rem;border-bottom:1px solid var(--gray-200);vertical-align:top;line-height:1.4}
+tbody tr:hover{background:var(--gray-100)}
+.resource-link{display:inline-block;background:var(--gray-100);border:1px solid var(--gray-300);border-radius:6px;padding:.4rem .8rem;font-size:.82rem;color:var(--blue);text-decoration:none;margin:.3rem .3rem .3rem 0;transition:all .2s}
+.resource-link:hover{background:var(--blue);color:var(--white);border-color:var(--blue)}
+.checklist{list-style:none;margin:1rem 0}
+.checklist li{padding:.6rem .8rem;border-bottom:1px solid var(--gray-200);font-size:.9rem;line-height:1.5;display:flex;align-items:flex-start;gap:.5rem}
+.checklist li .check-icon{flex-shrink:0;font-size:1rem}
+.footer{text-align:center;padding:1rem;font-size:.7rem;color:var(--gray-500);border-top:1px solid var(--gray-200);background:var(--white)}
+.footer-dark{text-align:center;padding:1rem;font-size:.7rem;color:var(--gray-500)}
+@media(max-width:768px){.portada h1{font-size:1.5rem}.content{padding:1rem}.section-title{font-size:1.2rem}.ficha-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="screen active" id="portada">
+<div class="portada">
+<div class="portada-emoji">👥📝🤝</div>
+<h1>Anexo V — Grupo de trabajo del claustro</h1>
+<h2>Integración de la IA en la práctica docente</h2>
+<p class="subtitle">CEIP San Fernando · Fuente del Rey · Dos Hermanas (Sevilla)<br>Proyecto IA en primarIA · Curso 2026/2027</p>
+<div class="version-badge">📌 Versión 1.0 — Julio 2026 · Documento vivo</div>
+<br>
+<button class="enter-btn" onclick="goTo('menu')">Abrir documento ➜</button>
+</div>
+<div class="footer-dark">© Luis Gómez Peñalver · CEIP San Fernando, Fuente del Rey, Dos Hermanas (Sevilla) · 2026 · Proyecto IA en primarIA · Este material se distribuye bajo licencia CC BY-NC-SA 4.0</div>
+</div>
+
+<!-- MENÚ -->
+<div class="screen" id="menu">
+<div class="top-nav">
+<button class="nav-btn home" onclick="goTo('portada')">🏠</button>
+<span class="nav-title">Anexo V — Índice</span>
+</div>
+<div class="content">
+<div class="section-title">Contenidos del Anexo</div>
+<p class="section-subtitle">Este documento propone pautas guía para un grupo de trabajo del claustro vinculado al proyecto IA en primarIA. No es una estructura rígida: es un marco flexible para que el profesorado que quiera acercarse al proyecto tenga por dónde entrar, sin que suponga una carga extra.</p>
+<div class="menu-grid">
+<div class="menu-card" onclick="goTo('sentido')">
+<span class="card-icon">🧭</span>
+<div class="card-content"><h3>Para qué este grupo</h3><p>Propósito, principios y lo que no es.</p></div>
+</div>
+<div class="menu-card" onclick="goTo('marco')">
+<span class="card-icon">🧠</span>
+<div class="card-content"><h3>Marco conceptual</h3><p>Los tres modos de uso y las 4D. Integración, no sustitución.</p></div>
+</div>
+<div class="menu-card" onclick="goTo('dinamica')">
+<span class="card-icon">🔄</span>
+<div class="card-content"><h3>Dinámica de trabajo</h3><p>Cómo funcionan las sesiones y qué se puede aportar.</p></div>
+</div>
+<div class="menu-card" onclick="goTo('repositorio')">
+<span class="card-icon">🗃️</span>
+<div class="card-content"><h3>Repositorio de usos reales</h3><p>La ficha de aportación y un ejemplo completo.</p></div>
+</div>
+<div class="menu-card" onclick="goTo('productos')">
+<span class="card-icon">📦</span>
+<div class="card-content"><h3>Productos del grupo</h3><p>Qué se genera a lo largo del curso.</p></div>
+</div>
+<div class="menu-card" onclick="goTo('hoja')">
+<span class="card-icon">📋</span>
+<div class="card-content"><h3>Hoja de registro</h3><p>Seguimiento de la implantación, sesión a sesión.</p></div>
+</div>
+</div>
+</div>
+<div class="footer">© Luis Gómez Peñalver · IA en primarIA · CEIP San Fernando · CC BY-NC-SA 4.0</div>
+</div>
+
+<!-- PARA QUÉ ESTE GRUPO -->
+<div class="screen" id="sentido">
+<div class="top-nav">
+<button class="nav-btn home" onclick="goTo('menu')">🏠</button>
+<button class="nav-btn" onclick="goTo('menu')">← Volver</button>
+<span class="nav-title">Para qué este grupo</span>
+</div>
+<div class="content">
+<div class="section-title">Propósito</div>
+
+<div class="block">
+<h3>Lo que es</h3>
+<p>Un espacio para que el profesorado del centro explore cómo integrar la IA en su práctica diaria —tanto en la gestión como en el aula— compartiendo lo que ya hace y aprendiendo de lo que hacen los demás. La programación de 5.º y 6.º del proyecto IA en primarIA sirve como hilo conductor: el grupo acompaña su puesta en práctica, prepara materiales y pone en común cómo evoluciona en el aula real.</p>
+</div>
+
+<div class="block">
+<h3>Lo que no es</h3>
+<ul>
+<li>No es un curso de formación. No hay temario, no hay examen, no hay evaluación del profesorado.</li>
+<li>No es una carga extra. El grupo existe para hacer más fácil lo que ya se está haciendo, no para añadir tareas.</li>
+<li>No es una reunión de herramientas. No se trata de presentar la última app: se trata de compartir usos reales con resultados reales.</li>
+<li>No es prescriptivo. Cada docente aporta lo que quiere, cuando quiere. No hay cuotas de producción ni entregas obligatorias.</li>
+</ul>
+</div>
+
+<div class="block">
+<h3>Principios</h3>
+<ul>
+<li><strong>Integración, no sustitución.</strong> La IA se incorpora como una herramienta más al servicio de la práctica docente. No reemplaza al profesorado ni cambia lo que funciona: amplía lo que ya se hace bien.</li>
+<li><strong>Utilidad inmediata.</strong> Todo lo que se trabaje en el grupo debe poder aplicarse al día siguiente en el aula o en la gestión. Si no sirve para mañana, no sirve para el grupo.</li>
+<li><strong>Documentar la práctica.</strong> Lo que no se escribe no existe. El grupo produce un registro de lo que se prueba, lo que funciona y lo que no, para que el centro tenga un documento al final del curso que refleje la experiencia real.</li>
+</ul>
+</div>
+</div>
+<div class="footer">© Luis Gómez Peñalver · IA en primarIA · CEIP San Fernando · CC BY-NC-SA 4.0</div>
+</div>
+
+<!-- MARCO CONCEPTUAL -->
+<div class="screen" id="marco">
+<div class="top-nav">
+<button class="nav-btn home" onclick="goTo('menu')">🏠</button>
+<button class="nav-btn" onclick="goTo('menu')">← Volver</button>
+<span class="nav-title">Marco conceptual</span>
+</div>
+<div class="content">
+<div class="section-title">Un vocabulario compartido</div>
+<p class="section-subtitle">Para que el grupo hable el mismo idioma al describir cómo usa la IA, se adopta el marco de AI Fluency for Educators (Anthropic Academy). Tiene dos ejes: los tres modos de interacción y las 4D.</p>
+
+<div class="section-title" style="font-size:1.2rem;margin-top:1rem">Los tres modos de interacción con la IA</div>
+
+<div class="concept-card">
+<h4>🔁 Automatización</h4>
+<p>La IA realiza una tarea repetitiva que antes hacías tú, sin que intervengas en cada paso. Tú supervisas el resultado, no el proceso.</p>
+<div class="example">Ejemplo: generar automáticamente un listado de asistencia formateado a partir de los datos de Séneca; clasificar correos de familias por tema.</div>
+</div>
+
+<div class="concept-card">
+<h4>🤝 Aumentación</h4>
+<p>La IA trabaja contigo en una tarea que requiere tu criterio profesional. Tú aportas el conocimiento pedagógico; la IA aporta velocidad, opciones o perspectivas que tú filtras.</p>
+<div class="example">Ejemplo: redactar el borrador de un informe de evaluación con la IA y revisarlo con tu conocimiento del alumno/a; generar variantes de un ejercicio adaptadas a distintos niveles.</div>
+</div>
+
+<div class="concept-card">
+<h4>🚀 Agenticidad</h4>
+<p>La IA actúa con cierta autonomía dentro de unos límites que tú has definido. Tú estableces las reglas y supervisas los resultados, pero la IA ejecuta sin intervención constante.</p>
+<div class="example">Ejemplo: un chatbot de School.ai que responde preguntas del alumnado sobre un tema concreto con los materiales que tú has cargado; un Gem de Gemini configurado para corregir ejercicios según una rúbrica.</div>
+</div>
+
+<div class="section-title" style="font-size:1.2rem;margin-top:1.5rem">Las 4D — Cuándo y cómo usar la IA</div>
+
+<div class="concept-card">
+<h4>📋 Delegación</h4>
+<p>Decidir qué tareas merece la pena delegar a la IA y cuáles no. No todo se debe automatizar: hay tareas donde el contacto humano es insustituible.</p>
+</div>
+
+<div class="concept-card">
+<h4>✏️ Descripción</h4>
+<p>Saber explicar a la IA exactamente lo que necesitas. Escribir instrucciones claras, con contexto y con los límites definidos. Es lo que en el proyecto llamamos «prompting pedagógico».</p>
+</div>
+
+<div class="concept-card">
+<h4>🔍 Discernimiento</h4>
+<p>Evaluar críticamente lo que la IA produce. No todo lo que genera es correcto, apropiado o útil. El docente es quien decide qué se usa y qué se descarta.</p>
+</div>
+
+<div class="concept-card">
+<h4>⚖️ Diligencia</h4>
+<p>Usar la IA de forma responsable: proteger los datos del alumnado, respetar la autoría, no generar dependencia, y ser transparente sobre cuándo se está usando IA.</p>
+</div>
+
+<div class="teacher-note">
+<div class="note-header">💡 Recurso de referencia</div>
+<p>Todo este marco se desarrolla en profundidad en el curso gratuito <strong>AI Fluency for Educators</strong> de Anthropic Academy. Los vídeos tienen doblaje al español disponible en YouTube (Configuración → Pista de audio → Español). Se recomienda como formación base para el profesorado que participe en el grupo.</p>
+<a class="resource-link" href="https://anthropic.skilljar.com/ai-fluency-framework-foundations" target="_blank">🎓 AI Fluency: Framework & Foundations (curso base, gratis)</a>
+<a class="resource-link" href="https://anthropic.skilljar.com/ai-fluency-for-educators" target="_blank">🎓 AI Fluency for Educators (gratis, con certificado)</a>
+</div>
+</div>
+<div class="footer">© Luis Gómez Peñalver · IA en primarIA · CEIP San Fernando · CC BY-NC-SA 4.0</div>
+</div>
+
+<!-- DINÁMICA DE TRABAJO -->
+<div class="screen" id="dinamica">
+<div class="top-nav">
+<button class="nav-btn home" onclick="goTo('menu')">🏠</button>
+<button class="nav-btn" onclick="goTo('menu')">← Volver</button>
+<span class="nav-title">Dinámica de trabajo</span>
+</div>
+<div class="content">
+<div class="section-title">Cómo funciona el grupo</div>
+<p class="section-subtitle">Estas son pautas orientativas, no reglas. El grupo se adapta al ritmo real del centro y del proyecto.</p>
+
+<div class="block">
+<h3>Periodicidad sugerida</h3>
+<p>Una reunión al mes de aproximadamente 30–45 minutos, en horario de coordinación. No se añaden reuniones fuera del horario lectivo. Si un mes no hay nada relevante que compartir, la reunión no se celebra.</p>
+</div>
+
+<div class="block">
+<h3>Estructura orientativa de cada reunión</h3>
+<ul>
+<li><strong>Puesta en común (15 min):</strong> ¿Qué ha pasado en el proyecto este mes? ¿Qué sesión se ha dado? ¿Qué ha funcionado, qué no? El docente que imparte comparte brevemente su experiencia.</li>
+<li><strong>Aportación libre (15 min):</strong> Cualquier docente del grupo comparte una herramienta, un uso, un recurso o una idea que haya probado en su aula o en su gestión. Se rellena la ficha del repositorio si procede.</li>
+<li><strong>Preparación de material (15 min, opcional):</strong> Si hay sesiones próximas que necesitan material (tarjetas que plastificar, dossiers que preparar), el grupo puede dedicar este rato a prepararlos juntos. Esto convierte la producción de material en algo compartido, no en tarea individual del docente que imparte.</li>
+</ul>
+</div>
+
+<div class="block">
+<h3>Qué se puede aportar</h3>
+<ul>
+<li>Una herramienta de IA que estés usando en tu aula o en tu gestión, con una descripción breve de para qué y cómo te ha ido.</li>
+<li>Un recurso (vídeo, tutorial, artículo) que te haya resultado útil.</li>
+<li>Una actividad del proyecto que hayas adaptado a tu área o a otro nivel.</li>
+<li>Una propuesta para mejorar una sesión del proyecto o para conectarla con otra asignatura.</li>
+<li>Una duda, un problema o una reflexión sobre el uso de la IA en el centro.</li>
+</ul>
+</div>
+
+<div class="info-bar">
+<span class="info-icon">💡</span>
+<div class="info-text"><strong>El criterio es la utilidad.</strong> Si lo que se comparte no sirve para la práctica diaria del profesorado del centro, no tiene sentido compartirlo en este grupo. No hay que impresionar a nadie: hay que ayudarse mutuamente.</div>
+</div>
+</div>
+<div class="footer">© Luis Gómez Peñalver · IA en primarIA · CEIP San Fernando · CC BY-NC-SA 4.0</div>
+</div>
+
+<!-- REPOSITORIO -->
+<div class="screen" id="repositorio">
+<div class="top-nav">
+<button class="nav-btn home" onclick="goTo('menu')">🏠</button>
+<button class="nav-btn" onclick="goTo('menu')">← Volver</button>
+<span class="nav-title">Repositorio de usos reales</span>
+</div>
+<div class="content">
+<div class="section-title">La ficha de aportación</div>
+<p class="section-subtitle">Cada vez que un docente comparte un uso de la IA en el grupo, se rellena esta ficha. No tiene que ser larga ni formal: son cinco campos que se completan en dos minutos. La colección de fichas es el repositorio.</p>
+
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Campo</th><th>Qué se escribe</th><th>Por qué importa</th></tr></thead>
+<tbody>
+<tr><td><strong>Herramienta</strong></td><td>Nombre de la herramienta o del recurso de IA utilizado.</td><td>Saber qué se está usando en el centro.</td></tr>
+<tr><td><strong>Uso concreto</strong></td><td>Para qué se ha usado, en qué contexto (aula, gestión, evaluación, comunicación con familias…).</td><td>Saber para qué sirve de verdad, no para qué dice la web que sirve.</td></tr>
+<tr><td><strong>Modo de interacción</strong></td><td>Automatización, aumentación o agenticidad.</td><td>Obliga a reflexionar sobre qué papel juega la IA en esa tarea. Es donde está el aprendizaje del grupo.</td></tr>
+<tr><td><strong>Qué cambió</strong></td><td>En el aprendizaje del alumnado o en la carga del docente. Puede ser positivo, neutro o negativo.</td><td>Sin este campo el repositorio documenta herramientas. Con él documenta práctica pedagógica.</td></tr>
+<tr><td><strong>Recomendación</strong></td><td>¿Lo recomendarías a otro docente del centro? ¿Con qué matices?</td><td>Filtro de utilidad real.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="section-title" style="font-size:1.1rem;margin-top:1.5rem">Ejemplo de ficha completa</div>
+
+<div class="ficha-example">
+<h4>📝 Ficha de aportación — Ejemplo</h4>
+<div class="ficha-grid">
+<div class="ficha-label">Herramienta</div>
+<div class="ficha-value">Gemini for Education</div>
+<div class="ficha-label">Uso concreto</div>
+<div class="ficha-value">Generar 5 variantes de un problema de matemáticas (divisiones con decimales) adaptadas a tres niveles de dificultad, para usar en los grupos interactivos de 3.º.</div>
+<div class="ficha-label">Modo de interacción</div>
+<div class="ficha-value">🤝 Aumentación — le di el problema original y los tres niveles; revisé y ajusté las variantes antes de usarlas.</div>
+<div class="ficha-label">Qué cambió</div>
+<div class="ficha-value">Ahorré unos 40 minutos de diseño de ejercicios. La calidad de las variantes era desigual: dos eran buenas directamente, tres necesitaron corrección. El alumnado no notó diferencia respecto a ejercicios hechos a mano.</div>
+<div class="ficha-label">Recomendación</div>
+<div class="ficha-value">Sí, pero siempre revisar antes de imprimir. No confiar en los cálculos: Gemini a veces falla con las operaciones. Útil para generar volumen, no para generar precisión.</div>
+</div>
+</div>
+
+<div class="teacher-note">
+<div class="note-header">💡 Sobre el campo «qué cambió»</div>
+<p>Este es el campo que convierte el repositorio en algo publicable y con valor para otros centros. Un listado de herramientas es lo que sobra en internet. Un registro de qué pasó realmente cuando se usaron en un aula concreta es lo que no hay. La honestidad es más valiosa que el entusiasmo: si algo no funcionó, escribirlo es tan útil como escribir que sí funcionó.</p>
+</div>
+</div>
+<div class="footer">© Luis Gómez Peñalver · IA en primarIA · CEIP San Fernando · CC BY-NC-SA 4.0</div>
+</div>
+
+<!-- PRODUCTOS -->
+<div class="screen" id="productos">
+<div class="top-nav">
+<button class="nav-btn home" onclick="goTo('menu')">🏠</button>
+<button class="nav-btn" onclick="goTo('menu')">← Volver</button>
+<span class="nav-title">Productos del grupo</span>
+</div>
+<div class="content">
+<div class="section-title">Qué genera el grupo a lo largo del curso</div>
+<p class="section-subtitle">Estos productos no se fabrican al final del curso: se van generando como subproducto natural de las reuniones y de la práctica. Si el grupo funciona, en junio el material ya existe. Si no funciona, forzar un producto en mayo no lo arregla.</p>
+
+<div class="block">
+<h3>1. Banco de recursos físicos</h3>
+<p>Las tarjetas plastificadas, fichas impresas y materiales manipulables que se preparan para las sesiones del proyecto. Una vez producidos, se guardan y reutilizan curso tras curso. El grupo puede dedicar parte de sus reuniones a preparar este material de forma colaborativa.</p>
+<p>Este producto tiene un valor inmediato: las tarjetas de S2, S4 y S11 que se plastifican en septiembre se usan en octubre, enero y durante todos los cursos siguientes.</p>
+</div>
+
+<div class="block">
+<h3>2. Repositorio de usos reales de IA en el aula</h3>
+<p>La colección de fichas de aportación que se van rellenando a lo largo del curso. Cada ficha documenta una herramienta, un uso concreto, el modo de interacción (automatización, aumentación, agenticidad), qué cambió y si se recomienda.</p>
+<p>El tamaño del repositorio depende de lo que el grupo aporte. Si hay diez fichas al final del curso, son diez usos documentados. Si hay tres, son tres. No hay mínimo.</p>
+</div>
+
+<div class="block">
+<h3>3. Documento de lo trabajado</h3>
+<p>Un documento breve (no más de 5–10 páginas) que recoge la experiencia del grupo: qué se hizo, qué funcionó, qué se aprendió, qué propone para el curso siguiente. Es la memoria del grupo, no un informe académico. Incluye las fichas del repositorio como apéndice.</p>
+</div>
+
+<div class="block">
+<h3>4. Artefacto HTML guía</h3>
+<p>Un artefacto interactivo —con el mismo formato visual del proyecto— que sintetiza lo trabajado por el grupo y sirve para compartirlo con la comunidad educativa al final del curso. Puede proyectarse en un claustro, en una reunión de familias o en una jornada de buenas prácticas.</p>
+<p>Este artefacto se genera cuando el grupo tenga el contenido cerrado, no antes.</p>
+</div>
+
+<div class="teacher-note">
+<div class="note-header">💡 Nota sobre la producción</div>
+<p>El producto más valioso del grupo no está en esta lista: es el cambio de conversación en la sala de profesores. Si en junio de 2027 el claustro habla de la IA con un vocabulario compartido (automatización, aumentación, agenticidad), sabe distinguir cuándo la IA ayuda y cuándo estorba, y tiene tres o cuatro usos probados que funcionan, el grupo ha cumplido su propósito aunque no haya producido un solo documento.</p>
+</div>
+</div>
+<div class="footer">© Luis Gómez Peñalver · IA en primarIA · CEIP San Fernando · CC BY-NC-SA 4.0</div>
+</div>
+
+<!-- HOJA DE REGISTRO -->
+<div class="screen" id="hoja">
+<div class="top-nav">
+<button class="nav-btn home" onclick="goTo('menu')">🏠</button>
+<button class="nav-btn" onclick="goTo('menu')">← Volver</button>
+<span class="nav-title">Hoja de registro</span>
+</div>
+<div class="content">
+<div class="section-title">Seguimiento de la implantación</div>
+<p class="section-subtitle">Una hoja por sesión, que el docente rellena el mismo día. Media cara, dos minutos. Es el instrumento que cierra el círculo: lo que se registra aquí alimenta la revisión de todos los anexos en junio de 2027.</p>
+
+<div class="ficha-example">
+<h4>📋 Hoja de registro de implantación — Plantilla</h4>
+<div class="ficha-grid">
+<div class="ficha-label">Sesión</div>
+<div class="ficha-value">N.º ___ · Título: ________________________________</div>
+<div class="ficha-label">Fecha</div>
+<div class="ficha-value">___/___/_______ · Grupo: 5.º ___ / 6.º ___</div>
+<div class="ficha-label">1. Tiempo</div>
+<div class="ficha-value">¿Se ajustó el tiempo real al previsto? ¿Qué fase se alargó o se quedó corta?</div>
+<div class="ficha-label">2. Técnica</div>
+<div class="ficha-value">¿Falló algo? ¿Qué herramienta, dispositivo o conexión dio problemas? ¿Se aplicó el plan B?</div>
+<div class="ficha-label">3. Alumnado</div>
+<div class="ficha-value">¿Qué preguntaron que no esperabas? ¿Qué les costó más? ¿Qué les gustó?</div>
+<div class="ficha-label">4. Mejora</div>
+<div class="ficha-value">¿Qué cambiarías la próxima vez que des esta sesión?</div>
+<div class="ficha-label">5. Familias (opcional)</div>
+<div class="ficha-value">¿Alguna familia ha preguntado algo relacionado con esta sesión?</div>
+</div>
+</div>
+
+<div class="teacher-note">
+<div class="note-header">💡 Adónde va cada campo</div>
+<ul>
+<li><strong>Campo 1 (tiempo)</strong> → alimenta el Anexo II (logística), para ajustar las fases de cada sesión.</li>
+<li><strong>Campo 2 (técnica)</strong> → alimenta el Anexo III (configuración técnica) y el protocolo de incidencias.</li>
+<li><strong>Campo 3 (alumnado)</strong> → alimenta la revisión de las sesiones para el curso siguiente.</li>
+<li><strong>Campo 4 (mejora)</strong> → alimenta la versión 2.0 de la programación.</li>
+<li><strong>Campo 5 (familias)</strong> → alimenta las FAQs del Anexo I (plan de familias).</li>
+</ul>
+<p>Con 27 hojas rellenadas a lo largo del curso, la revisión de junio de 2027 no es un ejercicio de memoria: es vaciar las hojas.</p>
+</div>
+
+<div class="info-bar">
+<span class="info-icon">📅</span>
+<div class="info-text"><strong>Punto de revisión:</strong> junio de 2027. Las hojas de registro se comparten en la última reunión del grupo de trabajo. Los datos que contienen generan las versiones 2.0 de los Anexos II, III y IV, y las FAQs actualizadas del Anexo I.</div>
+</div>
+</div>
+<div class="footer">© Luis Gómez Peñalver · IA en primarIA · CEIP San Fernando · CC BY-NC-SA 4.0</div>
+</div>
+
+<script>
+function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const t=document.getElementById(id);if(t){t.classList.add('active');window.scrollTo(0,0)}}
+</script>
+</body>
+</html>
